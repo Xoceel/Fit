@@ -3,26 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Fit.Views.WeightTrackingPage"
              Title="WeightTrackingPage">
-    <VerticalStackLayout>
-        <Frame BorderColor="Gray"
-               CornerRadius="5"
-               Padding="8">
-            <StackLayout>
-                <Label Text="Enter Current Weight"
-                       FontSize="14"
-                       FontAttributes="Bold" />
-                <Grid ColumnDefinitions="75, 25"
-                      RowDefinitions="*">
-                    <Button Text="Add Weight"
-                            BackgroundColor="#512BD4"
-                            TextColor="White"
-                            FontSize="14"
-                            CornerRadius="5"
-                            HeightRequest="30"
-                            VerticalOptions="End" />
-                </Grid>
-                
-            </StackLayout>
-        </Frame>
+
+    <VerticalStackLayout Padding="20">
+
+        <!-- Show list of weight entries -->
+        <CollectionView ItemsSource="{Binding WeightEntries}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
+                               WidthRequest="120"/>
+                        <Label Text="{Binding Weight, StringFormat='{0} kg'}"/>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Button to add new entry -->
+        <Button Text="Add Weight Entry"
+                Command="{Binding AddWeightCommand}" />
     </VerticalStackLayout>
+    
 </ContentPage>
