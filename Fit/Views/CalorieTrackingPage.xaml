@@ -3,10 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Fit.Views.CalorieTrackingPage"
              Title="CalorieTrackingPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="This is the calorie tracking page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    
+    <VerticalStackLayout Padding="20">
+        
+        <CollectionView ItemsSource="{Binding CalorieEntries}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}" 
+                               WidthRequest="120"/>
+                        <Label Text="{Binding Calories, StringFormat='{0} kcal'}"/>
+                        <Label Text="{Binding Protein, StringFormat='{0} g'}"/>
+                        <Label Text="{Binding Fat, StringFormat='{0} g'}"/>
+                        <Label Text="{Binding Carbs, StringFormat='{0} g'}"/>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Add Weight Entry"
+                Command="{Binding AddCalorieCommand}" />
     </VerticalStackLayout>
+    
 </ContentPage>
