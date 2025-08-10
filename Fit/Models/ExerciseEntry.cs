@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fit.Models
 {
-    class Exercise
+    class ExerciseEntry
     {
         public int Id { get; set; }
         public string ExerciseName { get; set; }
@@ -14,13 +14,18 @@ namespace Fit.Models
         public int Reps { get; set; }
         public float Weight { get; set; }
 
-        public Exercise(int id, string name, int sets, int reps, float weight)
+        public ExerciseEntry(int id, string exerciseName, int sets, int reps, float weight)
         {
             Id = id;
-            ExerciseName = name;
+            ExerciseName = exerciseName;
             Sets = sets;
             Reps = reps;
             Weight = weight;
+        }
+
+        public override string ToString()
+        {
+            return $"{ExerciseName}, {Sets}, {Reps}, {Weight}";
         }
     }
 }

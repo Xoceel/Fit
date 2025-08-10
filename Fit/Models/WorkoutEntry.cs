@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Fit.Models
 {
-    class Workout
+    class WorkoutEntry
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public List<Exercise> Exercises { get; set; }
+        public List<ExerciseEntry> Exercises { get; set; }
 
     }
 }

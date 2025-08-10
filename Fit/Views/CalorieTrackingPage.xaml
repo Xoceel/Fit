@@ -21,7 +21,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button Text="Add Weight Entry"
+        <Button Text="Add Calorie Entry"
                 Command="{Binding AddCalorieCommand}" />
     </VerticalStackLayout>
     

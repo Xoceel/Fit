@@ -4,20 +4,38 @@
              xmlns:core="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              x:Class="Fit.Views.TrainingTrackingPage"
              Title="TrainingTrackingPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="This is the training tracking page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Grid>
-            <core:SfBusyIndicator x:Name="busyindicator"
-              IsRunning="True"
-              HeightRequest="200" WidthRequest="200" 
-              AnimationType="CircularMaterial"
-              Title="Searching..."
-              TextColor="White"
-              IndicatorColor="White"
-              OverlayFill="#512BD4" />
-        </Grid>
+
+    <VerticalStackLayout Padding="20">
+
+        <!-- Show list of weight entries -->
+        <CollectionView ItemsSource="{Binding WorkoutEntries}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
+                               WidthRequest="120"/>
+
+                        <CollectionView ItemsSource="{Binding Exercises}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <HorizontalStackLayout>
+                                        <Label Text="{Binding ExerciseName}" />
+                                        <Label Text="{Binding Sets}"/>
+                                        <Label Text="{Binding Reps}"/>
+                                        <Label Text="{Binding Weight}"/>
+                                    </HorizontalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Button to add new entry -->
+        <Button Text="Add Workout Entry"
+                Command="{Binding AddWorkoutCommand}" />
     </VerticalStackLayout>
+    
 </ContentPage>
