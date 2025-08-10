@@ -14,6 +14,11 @@ namespace Fit.Models
         public int Reps { get; set; }
         public float Weight { get; set; }
 
+        public ExerciseEntry()
+        {
+
+        }
+
         public ExerciseEntry(int id, string exerciseName, int sets, int reps, float weight)
         {
             Id = id;

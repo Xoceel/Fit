@@ -34,8 +34,12 @@
         </CollectionView>
 
         <!-- Button to add new entry -->
-        <Button Text="Add Workout Entry"
-                Command="{Binding AddWorkoutCommand}" />
+        <HorizontalStackLayout>
+            <Button Text="Add Workout Entry"
+                    Command="{Binding AddWorkoutCommand}" />
+            <Button Text="Add Workout Entry"
+                    Command="{Binding AddExerciseCommand}" />
+        </HorizontalStackLayout>
     </VerticalStackLayout>
     
 </ContentPage>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Fit.Models;
@@ -51,6 +52,21 @@ namespace Fit.ViewModels
                 };
 
                 WorkoutEntries.Add(newEntry);
+            });
+
+            AddExerciseCommand = new Command(() =>
+            {
+                var newEntry = new ExerciseEntry
+                {
+                    Id = 99,
+                    ExerciseName = "water buffalo",
+                    Sets = 99,
+                    Reps = 99,
+                    Weight = (float)99.9
+                };
+
+                WorkoutEntries[0].Exercises.Add(newEntry);
+                Debug.WriteLine(WorkoutEntries[0]);
             });
         }
 

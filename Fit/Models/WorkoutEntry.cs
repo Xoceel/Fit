@@ -12,5 +12,19 @@ namespace Fit.Models
         public DateTime Date { get; set; }
         public List<ExerciseEntry> Exercises { get; set; }
 
+        // For printing out the list of exercises just debug use rn
+        public string ExerciseSummary
+        {
+            get
+            {
+                return string.Join(", ", Exercises.Select(e => e.ExerciseName));
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{Id}, {Date}, {ExerciseSummary}";
+        }
+
     }
 }
