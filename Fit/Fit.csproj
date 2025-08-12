@@ -62,6 +62,7 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.10.196-beta" />
 		<PackageReference Include="Syncfusion.Maui.Core" Version="30.2.4" />
 	</ItemGroup>
 
