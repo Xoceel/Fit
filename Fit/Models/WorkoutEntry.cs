@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fit.Models
 {
-    class WorkoutEntry
+    public class WorkoutEntry
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

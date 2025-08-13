@@ -16,6 +16,7 @@ namespace Fit.Data
 
             _database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
             await _database.CreateTableAsync<WeightEntry>();
+            await _database.CreateTableAsync<CalorieEntry>();
         }
 
         public async Task<List<WeightEntry>> GetWeightEntriesAsync()
@@ -37,10 +38,35 @@ namespace Fit.Data
             }
         }
 
-        public async Task<int> DeleteItemAsync(WeightEntry weight)
+        public async Task<int> DeleteWeightEntryAsync(WeightEntry weight)
         {
             await Init();
             return await _database.DeleteAsync(weight);
+        }
+
+        public async Task<List<CalorieEntry>> GetCalorieEntriesAsync()
+        {
+            await Init();
+            return await _database.Table<CalorieEntry>().ToListAsync();
+        }
+
+        public async Task<int> SaveCalorieEntryAsync(CalorieEntry calorie)
+        {
+            await Init();
+            if (calorie.Id != 0)
+            {
+                return await _database.UpdateAsync(calorie);
+            }
+            else
+            {
+                return await _database.InsertAsync(calorie);
+            }
+        }
+
+        public async Task<int> DeleteCalorieEntryAsync(CalorieEntry calorie)
+        {
+            await Init();
+            return await _database.DeleteAsync(calorie);
         }
     }
 }
