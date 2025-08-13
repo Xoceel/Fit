@@ -2,12 +2,15 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Fit.Data;
 using Fit.Models;
 
 namespace Fit.ViewModels
 {
     internal class WeightEntryViewModel : INotifyPropertyChanged
     {
+        private readonly FitnessDatabase _database;
+
         // This event tells the UI that a property has changed
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,27 +39,36 @@ namespace Fit.ViewModels
         // Command to add a new weight entry
         public ICommand AddWeightCommand { get; }
 
-        // Test set of weight entries
-        public WeightEntryViewModel()
+        public WeightEntryViewModel(FitnessDatabase database)
         {
-            WeightEntries = new ObservableCollection<WeightEntry>
+            _database = database;
+            WeightEntries = new ObservableCollection<WeightEntry>();
+
+            AddWeightCommand = new Command(async () => await AddWeightAsync());
+
+            Task.Run(async () => await LoadEntriesAsync());
+        }
+
+        public async Task LoadEntriesAsync()
+        {
+            var entries = await _database.GetWeightEntriesAsync();
+            WeightEntries.Clear();
+            foreach (var entry in entries)
             {
-                new WeightEntry {Id = 0, Date = DateTime.Now.AddDays(-2), Weight = 88.4f},
-                new WeightEntry {Id = 1, Date = DateTime.Now.AddDays(3), Weight = 80.9f},
-                new WeightEntry {Id = 2, Date = DateTime.Now.AddDays(1), Weight = 78.5f}
+                WeightEntries.Add(entry);
+            }
+        }
+
+        private async Task AddWeightAsync()
+        {
+            var newEntry = new WeightEntry
+            {
+                Date = DateTime.Now,
+                Weight = 99.9f
             };
 
-            AddWeightCommand = new Command(() =>
-            {
-                var newEntry = new WeightEntry
-                {
-                    Id = WeightEntries.Count + 1,
-                    Date = DateTime.Now,
-                    Weight = 99.9f
-                };
-
-                WeightEntries.Add(newEntry);
-            });
+            await _database.SaveWeightEntryAsync(newEntry);
+            WeightEntries.Add(newEntry);
         }
     }
 }

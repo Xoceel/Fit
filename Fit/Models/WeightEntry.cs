@@ -1,7 +1,10 @@
-﻿namespace Fit.Models
+﻿using SQLite;
+
+namespace Fit.Models
 {
-    class WeightEntry
+    public class WeightEntry
     {
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public float Weight { get; set; }

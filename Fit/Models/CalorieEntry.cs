@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Fit.Models
 {
     class CalorieEntry
     {
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int Calories { get; set; }

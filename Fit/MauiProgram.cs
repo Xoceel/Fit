@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Fit.Data;
+using Fit.Views;
+using Microsoft.Extensions.Logging;
 using Syncfusion.Maui.Core.Hosting;
 
 namespace Fit
@@ -22,8 +24,12 @@ namespace Fit
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<WeightTrackingPage>();
+            builder.Services.AddSingleton<FitnessDatabase>();
+
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
