@@ -2,18 +2,22 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Fit.Data;
 using Fit.Models;
 
 namespace Fit.ViewModels
 {
     internal class CalorieEntryViewModel : INotifyPropertyChanged
     {
+        private readonly FitnessDatabase _database;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
 
         private ObservableCollection<CalorieEntry> _calorieEntries;
 
@@ -31,29 +35,53 @@ namespace Fit.ViewModels
         }
 
         public ICommand AddCalorieCommand { get; }
+        public ICommand DeleteAllCaloriesCommand { get; }
 
-        public CalorieEntryViewModel()
+        public CalorieEntryViewModel(FitnessDatabase database)
         {
-            CalorieEntries = new ObservableCollection<CalorieEntry>
+            _database = database;
+            CalorieEntries = new ObservableCollection<CalorieEntry>();
+
+
+            AddCalorieCommand = new Command(async () => await AddCalorieAsync());
+            DeleteAllCaloriesCommand = new Command(async () => await DeleteAllCaloriesAsync(CalorieEntries));
+
+            Task.Run(async () => await LoadEntriesAsync());
+
+        }
+
+        public async Task LoadEntriesAsync()
+        {
+            var entries = await _database.GetCalorieEntriesAsync();
+            CalorieEntries = new ObservableCollection<CalorieEntry>();
+            foreach (var entry in entries)
             {
-                new CalorieEntry { Id = 0, Date = DateTime.Now.AddDays(-3), Calories = 500, Carbs = 50, Fat = 30, Protein = 77 },
-                new CalorieEntry { Id = 0, Date = DateTime.Now.AddDays(-1), Calories = 200, Carbs = 30, Fat = 100, Protein = 33 },
-                new CalorieEntry { Id = 0, Date = DateTime.Now.AddDays(-9), Calories = 800, Carbs = 20, Fat = 15, Protein = 88 }
+                CalorieEntries.Add(entry);
+            }
+        }
+
+        private async Task DeleteAllCaloriesAsync(ObservableCollection<CalorieEntry> calories)
+        {
+            foreach (var entry in calories)
+            {
+                await _database.DeleteCalorieEntryAsync(entry);
+            }
+            await LoadEntriesAsync();
+        }
+
+        private async Task AddCalorieAsync()
+        {
+            var newEntry = new CalorieEntry
+            {
+                Date = DateTime.Now,
+                Calories = 2000,
+                Fat = 300,
+                Carbs = 200,
+                Protein = 300
             };
 
-            AddCalorieCommand = new Command(() =>
-            {
-                var newEntry = new CalorieEntry
-                {
-                    Id = CalorieEntries.Count + 1,
-                    Date = DateTime.Now,
-                    Calories = 99,
-                    Carbs = 99,
-                    Fat = 99,
-                    Protein = 99
-                };
-                CalorieEntries.Add(newEntry);
-            });
+            await _database.SaveCalorieEntryAsync(newEntry);
+            CalorieEntries.Add(newEntry);
         }
     }
 }

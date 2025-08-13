@@ -22,6 +22,8 @@
         <!-- Button to add new entry -->
         <Button Text="Add Weight Entry"
                 Command="{Binding AddWeightCommand}" />
+        <Button Text="Delete All Weight Entries"
+                Command="{Binding DeleteAllWeightEntriesCommand}" />
     </VerticalStackLayout>
     
 </ContentPage>

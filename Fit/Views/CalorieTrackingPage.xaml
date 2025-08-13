@@ -23,6 +23,10 @@
 
         <Button Text="Add Calorie Entry"
                 Command="{Binding AddCalorieCommand}" />
+        
+        <Button Text="Delete All Calorie Entries from the DB"
+                Padding="10"
+                Command="{Binding DeleteAllCaloriesCommand}"/>
     </VerticalStackLayout>
     
 </ContentPage>
