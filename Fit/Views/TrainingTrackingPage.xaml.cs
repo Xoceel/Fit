@@ -1,12 +1,15 @@
+using Fit.Data;
 using Fit.ViewModels;
 
 namespace Fit.Views;
 
 public partial class TrainingTrackingPage : ContentPage
 {
-	public TrainingTrackingPage()
+	private readonly FitnessDatabase _database;
+	public TrainingTrackingPage(FitnessDatabase database)
 	{
 		InitializeComponent();
-		BindingContext = new WorkoutEntryViewModel();
+		_database = database;
+		BindingContext = new WorkoutEntryViewModel(_database);
 	}
 }

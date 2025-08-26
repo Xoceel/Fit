@@ -37,6 +37,8 @@
         <HorizontalStackLayout>
             <Button Text="Add Workout Entry"
                     Command="{Binding AddWorkoutCommand}" />
+            <Button Text="Delete All Workout Entries"
+                    Command="{Binding DeleteAllWorkoutsCommand}" />
             <Button Text="Add Workout Entry"
                     Command="{Binding AddExerciseCommand}" />
         </HorizontalStackLayout>

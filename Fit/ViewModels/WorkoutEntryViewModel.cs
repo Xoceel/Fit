@@ -3,12 +3,14 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Fit.Data;
 using Fit.Models;
 
 namespace Fit.ViewModels
 {
     internal class WorkoutEntryViewModel : INotifyPropertyChanged
     {
+        private readonly FitnessDatabase _database;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,40 +37,66 @@ namespace Fit.ViewModels
         public ICommand AddWorkoutCommand { get; }
         public ICommand AddExerciseCommand { get; }
 
-        public WorkoutEntryViewModel()
+        public ICommand DeleteAllWorkoutsCommand { get; }
+
+        public WorkoutEntryViewModel(FitnessDatabase database)
         {
-            WorkoutEntries = new ObservableCollection<WorkoutEntry>
-            {
-                new WorkoutEntry {Id = 0, Date = DateTime.Now.AddDays(-1), Exercises = new List<ExerciseEntry> {new ExerciseEntry(0, "latpulldowns", 3, 2, (float)10.5), new ExerciseEntry(0, "pulldowns", 3, 2, (float)150.5), new ExerciseEntry(0, "latpulldowns", 3, 2, (float)10000.5)}}
-            };
+            _database = database;
 
-            AddWorkoutCommand = new Command(() =>
-            {
-                var newEntry = new WorkoutEntry
-                {
-                    Id = WorkoutEntries.Count + 1,
-                    Date = DateTime.Now,
-                    Exercises = new List<ExerciseEntry> { new ExerciseEntry(0, "latpulldowns", 3, 2, (float)10.5), new ExerciseEntry(0, "pulldowns", 3, 2, (float)150.5), new ExerciseEntry(0, "latpulldowns", 3, 2, (float)10000.5)}
-                };
+            WorkoutEntries = new ObservableCollection<WorkoutEntry>();
 
-                WorkoutEntries.Add(newEntry);
-            });
+            AddWorkoutCommand = new Command(async () => await AddWorkoutAsync());
 
-            AddExerciseCommand = new Command(() =>
-            {
-                var newEntry = new ExerciseEntry
-                {
-                    Id = 99,
-                    ExerciseName = "water buffalo",
-                    Sets = 99,
-                    Reps = 99,
-                    Weight = (float)99.9
-                };
+            //AddExerciseCommand = new Command(async () => await AddExerciseAsync());
 
-                WorkoutEntries[0].Exercises.Add(newEntry);
-                Debug.WriteLine(WorkoutEntries[0]);
-            });
+            DeleteAllWorkoutsCommand = new Command(async () => await DeleteAllWorkoutsAsync(WorkoutEntries));
+
+            Task.Run(async () => await LoadEntriesAsync());
         }
 
+        public async Task LoadEntriesAsync()
+        {
+            var entries = await _database.GetWorkoutEntriesAsync();
+            WorkoutEntries = new ObservableCollection<WorkoutEntry>();
+            foreach (var entry in entries)
+            {
+                WorkoutEntries.Add(entry);
+            }
+        }
+
+        private async Task DeleteAllWorkoutsAsync(ObservableCollection<WorkoutEntry> workouts)
+        {
+            foreach (var entry in workouts)
+            {
+                await _database.DeleteWorkoutEntryAsync(entry);
+            }
+            await LoadEntriesAsync();
+        }
+
+        private async Task AddWorkoutAsync()
+        {
+            var newEntry = new WorkoutEntry
+            {
+                Date = DateTime.Now,
+            };
+
+            await _database.SaveWorkoiutEntryAsync(newEntry);
+            WorkoutEntries.Add(newEntry);
+        }
+
+        // adding this soon
+
+        //private async Task AddExerciseAsync()
+        //{
+        //    var newEntry = new ExerciseEntry
+        //    {
+        //        ExerciseName = "water buffalo",
+        //        Sets = 99,
+        //        Reps = 99,
+        //        Weight = (float)99.9
+        //    };
+
+        //    await _database.save
+        //}
     }
 }
