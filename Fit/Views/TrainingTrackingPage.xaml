@@ -8,26 +8,17 @@
     <VerticalStackLayout Padding="20">
 
         <!-- Show list of weight entries -->
-        <CollectionView ItemsSource="{Binding WorkoutEntries}">
+
+        <CollectionView ItemsSource="{Binding ExerciseEntries}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <HorizontalStackLayout>
                         <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
-                               WidthRequest="120"/>
-
-                        <CollectionView ItemsSource="{Binding Exercises}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <HorizontalStackLayout>
-                                        <Label Text="{Binding ExerciseName}" />
-                                        <Label Text="{Binding Sets}"/>
-                                        <Label Text="{Binding Reps}"/>
-                                        <Label Text="{Binding Weight}"/>
-                                    </HorizontalStackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-
+                                WidthRequest="120"/>
+                        <Label Text="{Binding ExerciseName}" />
+                        <Label Text="{Binding Sets}"/>
+                        <Label Text="{Binding Reps}"/>
+                        <Label Text="{Binding Weight}"/>
                     </HorizontalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -36,11 +27,9 @@
         <!-- Button to add new entry -->
         <HorizontalStackLayout>
             <Button Text="Add Workout Entry"
-                    Command="{Binding AddWorkoutCommand}" />
-            <Button Text="Delete All Workout Entries"
-                    Command="{Binding DeleteAllWorkoutsCommand}" />
-            <Button Text="Add Workout Entry"
                     Command="{Binding AddExerciseCommand}" />
+            <Button Text="Delete All Workout Entries"
+                    Command="{Binding DeleteAllExercisesCommand}" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
     

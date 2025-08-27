@@ -8,7 +8,7 @@ using Fit.Models;
 
 namespace Fit.ViewModels
 {
-    internal class WorkoutEntryViewModel : INotifyPropertyChanged
+    internal class ExerciseEntryViewModel : INotifyPropertyChanged
     {
         private readonly FitnessDatabase _database;
 
@@ -19,69 +19,72 @@ namespace Fit.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private ObservableCollection<WorkoutEntry> _workoutEntries;
+        private ObservableCollection<ExerciseEntry> _exerciseEntries;
 
-        public ObservableCollection<WorkoutEntry> WorkoutEntries
+        public ObservableCollection<ExerciseEntry> ExerciseEntries
         {
-            get => _workoutEntries;
+            get => _exerciseEntries;
             set
             {
-                if (_workoutEntries != value)
+                if (_exerciseEntries != value)
                 {
-                    _workoutEntries = value;
+                    _exerciseEntries = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public ICommand AddWorkoutCommand { get; }
         public ICommand AddExerciseCommand { get; }
 
-        public ICommand DeleteAllWorkoutsCommand { get; }
+        public ICommand DeleteAllExercisesCommand { get; }
 
-        public WorkoutEntryViewModel(FitnessDatabase database)
+        public ExerciseEntryViewModel(FitnessDatabase database)
         {
             _database = database;
 
-            WorkoutEntries = new ObservableCollection<WorkoutEntry>();
+            ExerciseEntries = new ObservableCollection<ExerciseEntry>();
 
-            AddWorkoutCommand = new Command(async () => await AddWorkoutAsync());
+            AddExerciseCommand = new Command(async () => await AddExerciseAsync());
 
             //AddExerciseCommand = new Command(async () => await AddExerciseAsync());
 
-            DeleteAllWorkoutsCommand = new Command(async () => await DeleteAllWorkoutsAsync(WorkoutEntries));
+            DeleteAllExercisesCommand = new Command(async () => await DeleteAllExercisesAsync(ExerciseEntries));
 
             Task.Run(async () => await LoadEntriesAsync());
         }
 
         public async Task LoadEntriesAsync()
         {
-            var entries = await _database.GetWorkoutEntriesAsync();
-            WorkoutEntries = new ObservableCollection<WorkoutEntry>();
+            var entries = await _database.GetExerciseEntriesAsync();
+            ExerciseEntries = new ObservableCollection<ExerciseEntry>();
             foreach (var entry in entries)
             {
-                WorkoutEntries.Add(entry);
+                ExerciseEntries.Add(entry);
             }
         }
 
-        private async Task DeleteAllWorkoutsAsync(ObservableCollection<WorkoutEntry> workouts)
+        private async Task DeleteAllExercisesAsync(ObservableCollection<ExerciseEntry> exercises)
         {
-            foreach (var entry in workouts)
+            foreach (var entry in exercises)
             {
                 await _database.DeleteWorkoutEntryAsync(entry);
             }
             await LoadEntriesAsync();
         }
 
-        private async Task AddWorkoutAsync()
+        private async Task AddExerciseAsync()
         {
-            var newEntry = new WorkoutEntry
+            var newEntry = new ExerciseEntry
             {
                 Date = DateTime.Now,
+                ExerciseName = "YO",
+                Sets = 10,
+                Reps = 11,
+                Weight = 100
             };
 
-            await _database.SaveWorkoiutEntryAsync(newEntry);
-            WorkoutEntries.Add(newEntry);
+            await _database.SaveExerciseEntryAsync(newEntry);
+            ExerciseEntries.Add(newEntry);
         }
 
         // adding this soon

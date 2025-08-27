@@ -10,6 +10,6 @@ public partial class TrainingTrackingPage : ContentPage
 	{
 		InitializeComponent();
 		_database = database;
-		BindingContext = new WorkoutEntryViewModel(_database);
+		BindingContext = new ExerciseEntryViewModel(_database);
 	}
 }

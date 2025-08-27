@@ -15,7 +15,7 @@ namespace Fit.Data
             }
 
             _database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
-            await _database.CreateTableAsync<WorkoutEntry>();
+            await _database.CreateTableAsync<ExerciseEntry>();
             await _database.CreateTableAsync<WeightEntry>();
             await _database.CreateTableAsync<CalorieEntry>();
 
@@ -72,29 +72,29 @@ namespace Fit.Data
         }
 
         // workout db section
-        public async Task<List<WorkoutEntry>> GetWorkoutEntriesAsync()
+        public async Task<List<ExerciseEntry>> GetExerciseEntriesAsync()
         {
             await Init();
-            return await _database.Table<WorkoutEntry>().ToListAsync();
+            return await _database.Table<ExerciseEntry>().ToListAsync();
         }
 
-        public async Task<int> SaveWorkoiutEntryAsync(WorkoutEntry workout)
+        public async Task<int> SaveExerciseEntryAsync(ExerciseEntry exercise)
         {
             await Init();
-            if (workout.Id != 0)
+            if (exercise.Id != 0)
             {
-                return await _database.UpdateAsync(workout);
+                return await _database.UpdateAsync(exercise);
             }
             else
             {
-                return await _database.InsertAsync(workout);
+                return await _database.InsertAsync(exercise);
             }
         }
 
-        public async Task<int> DeleteWorkoutEntryAsync(WorkoutEntry workout)
+        public async Task<int> DeleteWorkoutEntryAsync(ExerciseEntry exercise)
         {
             await Init();
-            return await _database.DeleteAsync(workout);
+            return await _database.DeleteAsync(exercise);
         }
     }
 }

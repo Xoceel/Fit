@@ -6,6 +6,7 @@ namespace Fit.Models
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        public DateTime Date { get; set; }
         public string ExerciseName { get; set; }
         public int Sets { get; set; }
         public int Reps { get; set; }
@@ -16,9 +17,10 @@ namespace Fit.Models
 
         }
 
-        public ExerciseEntry(int id, string exerciseName, int sets, int reps, float weight)
+        public ExerciseEntry(int id, DateTime date, string exerciseName, int sets, int reps, float weight)
         {
             Id = id;
+            Date = date;
             ExerciseName = exerciseName;
             Sets = sets;
             Reps = reps;
@@ -27,7 +29,7 @@ namespace Fit.Models
 
         public override string ToString()
         {
-            return $"{ExerciseName}, {Sets}, {Reps}, {Weight}";
+            return $"{ExerciseName}, {Date}, {Sets}, {Reps}, {Weight}";
         }
     }
 }
