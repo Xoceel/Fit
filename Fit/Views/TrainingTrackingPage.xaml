@@ -26,9 +26,9 @@
 
         <!-- Button to add new entry -->
         <HorizontalStackLayout>
-            <Button Text="Add Workout Entry"
+            <Button Text="Add Exercise Entry"
                     Command="{Binding AddExerciseCommand}" />
-            <Button Text="Delete All Workout Entries"
+            <Button Text="Delete All Exercise Entries"
                     Command="{Binding DeleteAllExercisesCommand}" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
