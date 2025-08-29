@@ -2,22 +2,32 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Fit.Views.WeightTrackingPage"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
              Title="WeightTrackingPage">
 
     <VerticalStackLayout Padding="20">
 
-        <!-- Show list of weight entries -->
-        <CollectionView ItemsSource="{Binding WeightEntries}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <HorizontalStackLayout>
-                        <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
-                               WidthRequest="120"/>
-                        <Label Text="{Binding Weight, StringFormat='{0} kg'}"/>
-                    </HorizontalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+
+        <chart:SfCartesianChart>
+            <chart:SfCartesianChart.XAxes>
+                <chart:CategoryAxis>
+                    <chart:CategoryAxis.Title>
+                        <chart:ChartAxisTitle Text="Date"/>
+                    </chart:CategoryAxis.Title>
+                </chart:CategoryAxis>
+            </chart:SfCartesianChart.XAxes>
+            <chart:SfCartesianChart.YAxes>
+                <chart:NumericalAxis>
+                    <chart:NumericalAxis.Title>
+                        <chart:ChartAxisTitle Text="Weight (kg)"/>
+                    </chart:NumericalAxis.Title>
+                </chart:NumericalAxis>
+            </chart:SfCartesianChart.YAxes>
+
+            <chart:ColumnSeries ItemsSource="{Binding WeightEntries}" 
+                        XBindingPath="Date" 
+                        YBindingPath="Weight"/>
+        </chart:SfCartesianChart>
 
         <!-- Button to add new entry -->
         <HorizontalStackLayout>
