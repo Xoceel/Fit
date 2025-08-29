@@ -11,6 +11,8 @@ namespace Fit.ViewModels
     {
         private readonly FitnessDatabase _database;
 
+        public float WeightEntered { get; set; }
+
         // This event tells the UI that a property has changed
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -75,7 +77,7 @@ namespace Fit.ViewModels
             var newEntry = new WeightEntry
             {
                 Date = DateTime.Now,
-                Weight = 99.9f
+                Weight = (float)WeightEntered
             };
 
             await _database.SaveWeightEntryAsync(newEntry);

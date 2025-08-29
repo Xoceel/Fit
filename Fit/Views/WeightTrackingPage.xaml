@@ -20,8 +20,13 @@
         </CollectionView>
 
         <!-- Button to add new entry -->
-        <Button Text="Add Weight Entry"
-                Command="{Binding AddWeightCommand}" />
+        <HorizontalStackLayout>
+            <Button Text="Add Weight Entry"
+                    Command="{Binding AddWeightCommand}" />
+            <Entry Placeholder="Enter weight in Kg"
+                   Text="{Binding WeightEntered}"></Entry>
+        </HorizontalStackLayout>
+        
         <Button Text="Delete All Weight Entries"
                 Command="{Binding DeleteAllWeightEntriesCommand}" />
     </VerticalStackLayout>
