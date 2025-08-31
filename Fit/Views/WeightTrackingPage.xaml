@@ -12,7 +12,7 @@
             <Border StrokeShape="RoundRectangle 10">
 
 
-                    <chart:SfCartesianChart>
+                    <chart:SfCartesianChart HeightRequest="500">
                         <chart:SfCartesianChart.XAxes>
                             <chart:CategoryAxis PlotOffsetStart="30" PlotOffsetEnd="30"/>
                         </chart:SfCartesianChart.XAxes>

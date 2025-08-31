@@ -11,7 +11,7 @@
         <VerticalStackLayout>
             <Border StrokeShape="RoundRectangle 10">
 
-                <CollectionView ItemsSource="{Binding CalorieEntries}" EmptyView="Nothing to show">
+                <CollectionView ItemsSource="{Binding CalorieEntries}" EmptyView="Nothing to show" HeightRequest="500">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <HorizontalStackLayout Padding="5">
