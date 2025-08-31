@@ -5,24 +5,37 @@
              x:Class="Fit.Views.TrainingTrackingPage"
              Title="">
 
+    <Shell.TitleView>
+        <Grid>
+            <Label Text="Track Your Training" HorizontalOptions="Center" VerticalOptions="Center" FontSize="26"/>
+        </Grid>
+    </Shell.TitleView>
+
     <Grid Padding="20">
 
         <!-- Show list of weight entries -->
 
-        <CollectionView ItemsSource="{Binding ExerciseEntries}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <HorizontalStackLayout>
-                        <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
-                                WidthRequest="120"/>
-                        <Label Text="{Binding ExerciseName}" />
-                        <Label Text="{Binding Sets}"/>
-                        <Label Text="{Binding Reps}"/>
-                        <Label Text="{Binding Weight}"/>
-                    </HorizontalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <VerticalStackLayout>
+            <Border StrokeShape="RoundRectangle 10">
+
+                <CollectionView ItemsSource="{Binding ExerciseEntries}" EmptyView="Nothing to show" HeightRequest="500">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout>
+                                <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
+                                       WidthRequest="120"/>
+                                <Label Text="{Binding ExerciseName}" />
+                                <Label Text="{Binding Sets}"/>
+                                <Label Text="{Binding Reps}"/>
+                                <Label Text="{Binding Weight}"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+        </VerticalStackLayout>
+
+        
 
         <!-- Button to add new entry -->
         <HorizontalStackLayout VerticalOptions="End" Spacing="5">

@@ -3,8 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Fit.Views.WeightTrackingPage"
              xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
-             xmlns:cards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
-             Title="">
+             xmlns:cards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards">
+
+    <Shell.TitleView>
+        <Grid>
+            <Label Text="Track Your Weight" HorizontalOptions="Center" VerticalOptions="Center" FontSize="26"/>
+        </Grid>
+    </Shell.TitleView>
 
     <Grid Padding="20">
 
@@ -34,11 +39,14 @@
 
         <!-- Button to add new entry -->
         <VerticalStackLayout VerticalOptions="End"  Spacing="5">
-            <HorizontalStackLayout  Spacing="5">
-                <Button Text="Add Weight Entry"
-                    Command="{Binding AddWeightCommand}" />
+            <HorizontalStackLayout  Spacing="5" HorizontalOptions="">
                 <Entry Placeholder="Enter weight in Kg"
-                   Text="{Binding WeightEntered}"></Entry>
+                       Text="{Binding WeightEntered}"
+                       HorizontalOptions="Start"></Entry>
+                <Label Text="kg" VerticalTextAlignment="Center" HorizontalOptions="Start"></Label>
+                <Button Text="Add Weight Entry"
+                        Command="{Binding AddWeightCommand}" 
+                        HorizontalOptions="End"/>
             </HorizontalStackLayout>
 
             <Button Text="Delete All Weight Entries"
