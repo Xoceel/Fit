@@ -2,31 +2,39 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Fit.Views.CalorieTrackingPage"
-             Title="CalorieTrackingPage">
+             xmlns:cards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
+             Title="">
     
-    <VerticalStackLayout Padding="20">
-        
-        <CollectionView ItemsSource="{Binding CalorieEntries}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <HorizontalStackLayout>
-                        <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}" 
-                               WidthRequest="120"/>
-                        <Label Text="{Binding Calories, StringFormat='{0} kcal'}"/>
-                        <Label Text="{Binding Protein, StringFormat='{0} g'}"/>
-                        <Label Text="{Binding Fat, StringFormat='{0} g'}"/>
-                        <Label Text="{Binding Carbs, StringFormat='{0} g'}"/>
-                    </HorizontalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+    <Grid Padding="20">
 
-        <Button Text="Add Calorie Entry"
-                Command="{Binding AddCalorieCommand}" />
-        
-        <Button Text="Delete All Calorie Entries from the DB"
-                Padding="10"
-                Command="{Binding DeleteAllCaloriesCommand}"/>
-    </VerticalStackLayout>
+
+        <cards:SfCardLayout HeightRequest="300" VerticalOptions="Start">
+            <cards:SfCardView>
+                <CollectionView ItemsSource="{Binding CalorieEntries}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout Padding="5">
+                                <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}" 
+                                       WidthRequest="120"/>
+                                <Label Text="{Binding Calories, StringFormat='{0} kcal'}"/>
+                                <Label Text="{Binding Protein, StringFormat='{0} g'}"/>
+                                <Label Text="{Binding Fat, StringFormat='{0} g'}"/>
+                                <Label Text="{Binding Carbs, StringFormat='{0} g'}"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </cards:SfCardView>
+        </cards:SfCardLayout>
+
+        <VerticalStackLayout VerticalOptions="End">
+            <Button Text="Add Calorie Entry"
+                    Command="{Binding AddCalorieCommand}" />
+
+            <Button Text="Delete All Calorie Entries from the DB"
+                    Padding="10"
+                    Command="{Binding DeleteAllCaloriesCommand}"/>
+        </VerticalStackLayout>
+    </Grid>
     
 </ContentPage>

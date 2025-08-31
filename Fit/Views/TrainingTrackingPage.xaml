@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:core="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              x:Class="Fit.Views.TrainingTrackingPage"
-             Title="TrainingTrackingPage">
+             Title="">
 
-    <VerticalStackLayout Padding="20">
+    <Grid Padding="20" VerticalOptions="Fill">
 
         <!-- Show list of weight entries -->
 
@@ -25,12 +25,12 @@
         </CollectionView>
 
         <!-- Button to add new entry -->
-        <HorizontalStackLayout>
+        <HorizontalStackLayout VerticalOptions="End">
             <Button Text="Add Exercise Entry"
                     Command="{Binding AddExerciseCommand}" />
             <Button Text="Delete All Exercise Entries"
                     Command="{Binding DeleteAllExercisesCommand}" />
         </HorizontalStackLayout>
-    </VerticalStackLayout>
+    </Grid>
     
 </ContentPage>
