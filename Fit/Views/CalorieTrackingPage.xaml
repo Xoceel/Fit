@@ -8,9 +8,10 @@
     <Grid Padding="20">
 
 
-        <cards:SfCardLayout HeightRequest="300" VerticalOptions="Start">
-            <cards:SfCardView>
-                <CollectionView ItemsSource="{Binding CalorieEntries}">
+        <VerticalStackLayout>
+            <Border StrokeShape="RoundRectangle 10">
+
+                <CollectionView ItemsSource="{Binding CalorieEntries}" EmptyView="Nothing to show">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <HorizontalStackLayout Padding="5">
@@ -24,15 +25,14 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-            </cards:SfCardView>
-        </cards:SfCardLayout>
+            </Border>
+        </VerticalStackLayout>
 
-        <VerticalStackLayout VerticalOptions="End">
+        <VerticalStackLayout VerticalOptions="End" Spacing="5">
             <Button Text="Add Calorie Entry"
-                    Command="{Binding AddCalorieCommand}" />
+                    Command="{Binding AddCalorieCommand}"/>
 
             <Button Text="Delete All Calorie Entries from the DB"
-                    Padding="10"
                     Command="{Binding DeleteAllCaloriesCommand}"/>
         </VerticalStackLayout>
     </Grid>

@@ -8,33 +8,33 @@
 
     <Grid Padding="20">
 
+        <VerticalStackLayout>
+            <Border StrokeShape="RoundRectangle 10">
 
-        <cards:SfCardLayout HeightRequest="300" VerticalOptions="Start">
-            <cards:SfCardView>
-                <chart:SfCartesianChart>
-                    <chart:SfCartesianChart.XAxes>
-                        <chart:CategoryAxis PlotOffsetStart="30" PlotOffsetEnd="30"/>
-                    </chart:SfCartesianChart.XAxes>
 
-                    <chart:SfCartesianChart.YAxes>
-                        <chart:NumericalAxis PlotOffsetStart="30" PlotOffsetEnd="30"/>
-                    </chart:SfCartesianChart.YAxes>
+                    <chart:SfCartesianChart>
+                        <chart:SfCartesianChart.XAxes>
+                            <chart:CategoryAxis PlotOffsetStart="30" PlotOffsetEnd="30"/>
+                        </chart:SfCartesianChart.XAxes>
 
-                    <chart:SplineSeries ItemsSource="{Binding WeightEntries}"
-                XBindingPath="Date"
-                YBindingPath="Weight"
-                Type="Cardinal"
-                ShowMarkers="True"
-                EnableTooltip="True"/>
-                </chart:SfCartesianChart>
-            </cards:SfCardView>
-        </cards:SfCardLayout>
+                        <chart:SfCartesianChart.YAxes>
+                            <chart:NumericalAxis PlotOffsetStart="30" PlotOffsetEnd="30"/>
+                        </chart:SfCartesianChart.YAxes>
 
-        
+                        <chart:SplineSeries ItemsSource="{Binding WeightEntries}"
+                    XBindingPath="Date"
+                    YBindingPath="Weight"
+                    Type="Cardinal"
+                    ShowMarkers="True"
+                    EnableTooltip="True"/>
+                    </chart:SfCartesianChart>
+
+            </Border>
+        </VerticalStackLayout>
 
         <!-- Button to add new entry -->
-        <VerticalStackLayout VerticalOptions="End">
-            <HorizontalStackLayout>
+        <VerticalStackLayout VerticalOptions="End"  Spacing="5">
+            <HorizontalStackLayout  Spacing="5">
                 <Button Text="Add Weight Entry"
                     Command="{Binding AddWeightCommand}" />
                 <Entry Placeholder="Enter weight in Kg"
