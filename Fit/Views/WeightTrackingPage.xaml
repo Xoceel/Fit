@@ -39,7 +39,7 @@
 
         <!-- Button to add new entry -->
         <VerticalStackLayout VerticalOptions="End"  Spacing="5">
-            <HorizontalStackLayout  Spacing="5" HorizontalOptions="">
+            <HorizontalStackLayout  Spacing="5">
                 <Entry Placeholder="Enter weight in Kg"
                        Text="{Binding WeightEntered}"
                        HorizontalOptions="Start"></Entry>
