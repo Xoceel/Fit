@@ -11,7 +11,7 @@ namespace Fit.ViewModels
     {
         private readonly FitnessDatabase _database;
 
-        public float WeightEntered { get; set; }
+        public float? WeightEntered { get; set; } = null;
 
         // This event tells the UI that a property has changed
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,8 +37,6 @@ namespace Fit.ViewModels
                 }
             }
         }
-
-        
 
         // Command to add a new weight entry
         public ICommand AddWeightCommand { get; }
