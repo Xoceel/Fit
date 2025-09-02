@@ -6,52 +6,108 @@
              xmlns:cards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards">
 
     <Shell.TitleView>
-        <Grid>
-            <Label Text="Track Your Weight" HorizontalOptions="Center" VerticalOptions="Center" FontSize="26"/>
-        </Grid>
+        <Label Text="Track Your Weight" HorizontalOptions="Center" VerticalOptions="Center" FontSize="26"/>
     </Shell.TitleView>
 
     <Grid Padding="20">
 
-        <VerticalStackLayout>
-            <Border StrokeShape="RoundRectangle 10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height=".5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border StrokeShape="RoundRectangle 10" Grid.ColumnSpan="3" BackgroundColor="#FFFFFF">
+
+                <chart:SfCartesianChart>
+
+                <chart:SfCartesianChart.Resources>
+                    <DataTemplate x:Key="tooltipTemplate">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Item.Weight}"
+                                   TextColor="White"
+                                   FontAttributes="Bold"
+                                   FontSize="12"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                            <Label Text="kg - "
+                                   TextColor="White"
+                                   FontAttributes="Bold"
+                                   FontSize="12"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                            <Label Text="{Binding Item.Date}"
+                                   TextColor="White"
+                                   FontAttributes="Bold"
+                                   FontSize="12"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </chart:SfCartesianChart.Resources>
+                    
+                <chart:SfCartesianChart.XAxes>
+                        <chart:CategoryAxis PlotOffsetStart="30" PlotOffsetEnd="30"/>
+                    </chart:SfCartesianChart.XAxes>
+
+                    <chart:SfCartesianChart.YAxes>
+                        <chart:NumericalAxis PlotOffsetStart="30" PlotOffsetEnd="30"/>
+                    </chart:SfCartesianChart.YAxes>
+
+                    <chart:SplineSeries ItemsSource="{Binding WeightEntries}"
+                XBindingPath="Date"
+                YBindingPath="Weight"
+                Type="Cardinal"
+                ShowMarkers="True"
+                EnableTooltip="True"
+                TooltipTemplate="{StaticResource tooltipTemplate}"/>
+                </chart:SfCartesianChart>
+
+        </Border>
 
 
-                    <chart:SfCartesianChart HeightRequest="500">
-                        <chart:SfCartesianChart.XAxes>
-                            <chart:CategoryAxis PlotOffsetStart="30" PlotOffsetEnd="30"/>
-                        </chart:SfCartesianChart.XAxes>
+            
+            
+        <Entry Placeholder="Enter weight in Kg"
+            Grid.Row="1"
+            HorizontalTextAlignment="Center"
+            VerticalTextAlignment="End"
+            Margin="10"
+            Text="{Binding WeightEntered}"
+            Keyboard="Numeric">
+               
+        </Entry>
 
-                        <chart:SfCartesianChart.YAxes>
-                            <chart:NumericalAxis PlotOffsetStart="30" PlotOffsetEnd="30"/>
-                        </chart:SfCartesianChart.YAxes>
+        <Label Text="kg" 
+                Margin="10"
+                VerticalTextAlignment="Center" 
+                HorizontalOptions="Start" 
+                Grid.Row="1"
+                Grid.Column="1"></Label>
 
-                        <chart:SplineSeries ItemsSource="{Binding WeightEntries}"
-                    XBindingPath="Date"
-                    YBindingPath="Weight"
-                    Type="Cardinal"
-                    ShowMarkers="True"
-                    EnableTooltip="True"/>
-                    </chart:SfCartesianChart>
+        <Button Text="Add Weight Entry"
+                Grid.Row="1"
+                Margin="0, 10"
+                Grid.ColumnSpan="3"
+                Command="{Binding AddWeightCommand}" 
+                HorizontalOptions="End">
+            
+        </Button>
 
-            </Border>
-        </VerticalStackLayout>
+        <Button Text="Delete All Weight Entries"
+                Grid.Row="2"
+                Margin="0, 10"
+                Grid.ColumnSpan="3"
+                Command="{Binding DeleteAllWeightEntriesCommand}">
+        </Button>
 
-        <!-- Button to add new entry -->
-        <VerticalStackLayout VerticalOptions="End"  Spacing="5">
-            <HorizontalStackLayout  Spacing="5">
-                <Entry Placeholder="Enter weight in Kg"
-                       Text="{Binding WeightEntered}"
-                       HorizontalOptions="Start"></Entry>
-                <Label Text="kg" VerticalTextAlignment="Center" HorizontalOptions="Start"></Label>
-                <Button Text="Add Weight Entry"
-                        Command="{Binding AddWeightCommand}" 
-                        HorizontalOptions="End"/>
-            </HorizontalStackLayout>
 
-            <Button Text="Delete All Weight Entries"
-                Command="{Binding DeleteAllWeightEntriesCommand}" />
-        </VerticalStackLayout>
 
     </Grid>
     

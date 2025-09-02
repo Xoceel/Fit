@@ -38,6 +38,8 @@ namespace Fit.ViewModels
             }
         }
 
+        
+
         // Command to add a new weight entry
         public ICommand AddWeightCommand { get; }
         public ICommand DeleteAllWeightEntriesCommand { get; }
