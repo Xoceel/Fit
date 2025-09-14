@@ -40,7 +40,7 @@ namespace Fit.ViewModels
 
         // Command to add a new weight entry
         public ICommand AddWeightCommand { get; }
-        public ICommand DeleteAllWeightEntriesCommand { get; }
+        public ICommand DeleteLastWeightEntryCommand { get; }
 
         public WeightEntryViewModel(FitnessDatabase database)
         {
@@ -48,7 +48,7 @@ namespace Fit.ViewModels
             WeightEntries = new ObservableCollection<WeightEntry>();
 
             AddWeightCommand = new Command(async () => await AddWeightAsync());
-            DeleteAllWeightEntriesCommand = new Command(async () => await DeleteAllEntriesAsync(WeightEntries));
+            DeleteLastWeightEntryCommand = new Command(async () => await DeleteLastEntryAsync(WeightEntries));
 
             Task.Run(async () => await LoadEntriesAsync());
         }
@@ -63,11 +63,13 @@ namespace Fit.ViewModels
             }
         }
 
-        private async Task DeleteAllEntriesAsync(ObservableCollection<WeightEntry> weights)
+        private async Task DeleteLastEntryAsync(ObservableCollection<WeightEntry> weights)
         {
-            foreach (var entry in weights)
+
+            if (weights.Count != 0)
             {
-                await _database.DeleteWeightEntryAsync(entry);
+                var latestEntry = weights.Last<WeightEntry>();
+                await _database.DeleteWeightEntryAsync(latestEntry);
             }
             await LoadEntriesAsync();
         }

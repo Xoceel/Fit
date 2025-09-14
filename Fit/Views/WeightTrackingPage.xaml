@@ -19,7 +19,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width=".5*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -103,14 +103,12 @@
             
         </Button>
 
-        <Button Text="Delete All Weight Entries"
+        <Button Text="Delete Last Weight Entry"
                 Grid.Row="2"
                 Margin="0, 10"
                 Grid.ColumnSpan="3"
-                Command="{Binding DeleteAllWeightEntriesCommand}">
+                Command="{Binding DeleteLastWeightEntryCommand}">
         </Button>
-
-
 
     </Grid>
     
