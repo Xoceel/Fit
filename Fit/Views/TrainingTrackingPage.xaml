@@ -13,8 +13,6 @@
 
     <Grid Padding="20">
 
-        <!-- Show list of weight entries -->
-
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition Height=".5*"/>
@@ -29,7 +27,7 @@
 
         <Border StrokeShape="RoundRectangle 10" Grid.ColumnSpan="3">
 
-            <CollectionView ItemsSource="{Binding ExerciseEntries}" EmptyView="Nothing to show" HeightRequest="500">
+            <CollectionView ItemsSource="{Binding ExerciseEntries}" EmptyView="Nothing to show">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <HorizontalStackLayout Padding="10">

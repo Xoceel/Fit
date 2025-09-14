@@ -11,35 +11,53 @@
     </Shell.TitleView>
 
     <Grid Padding="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height=".5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border StrokeShape="RoundRectangle 10" Grid.ColumnSpan="3">
+
+            <CollectionView ItemsSource="{Binding CalorieEntries}" EmptyView="Nothing to show">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout Padding="5">
+                            <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"/>
+                            <Label Text="{Binding Calories, StringFormat='{0} kcal'}"/>
+                            <Label Text="{Binding Protein, StringFormat='{0} g'}"/>
+                            <Label Text="{Binding Fat, StringFormat='{0} g'}"/>
+                            <Label Text="{Binding Carbs, StringFormat='{0} g'}"/>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+
+         
+
+        <Button Text="Add Calorie Entry"
+                Grid.Row="1"
+                Margin="0, 10"
+                Grid.ColumnSpan="3"
+                Command="{Binding AddCalorieCommand}">
+
+        </Button>
+
+        <Button Text="Delete All Calorie Entries"
+                Grid.Row="2"
+                Margin="0, 10"
+                Grid.ColumnSpan="3"
+                Command="{Binding DeleteAllCaloriesCommand}">
+        </Button>
         
-
-        <VerticalStackLayout>
-            <Border StrokeShape="RoundRectangle 10">
-
-                <CollectionView ItemsSource="{Binding CalorieEntries}" EmptyView="Nothing to show" HeightRequest="500">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <HorizontalStackLayout Padding="5">
-                                <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}" 
-                                       WidthRequest="120"/>
-                                <Label Text="{Binding Calories, StringFormat='{0} kcal'}"/>
-                                <Label Text="{Binding Protein, StringFormat='{0} g'}"/>
-                                <Label Text="{Binding Fat, StringFormat='{0} g'}"/>
-                                <Label Text="{Binding Carbs, StringFormat='{0} g'}"/>
-                            </HorizontalStackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Border>
-        </VerticalStackLayout>
-
-        <VerticalStackLayout VerticalOptions="End" Spacing="5">
-            <Button Text="Add Calorie Entry"
-                    Command="{Binding AddCalorieCommand}"/>
-
-            <Button Text="Delete All Calorie Entries from the DB"
-                    Command="{Binding DeleteAllCaloriesCommand}"/>
-        </VerticalStackLayout>
     </Grid>
     
 </ContentPage>
