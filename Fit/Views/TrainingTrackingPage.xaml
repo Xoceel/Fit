@@ -15,35 +15,51 @@
 
         <!-- Show list of weight entries -->
 
-        <VerticalStackLayout>
-            <Border StrokeShape="RoundRectangle 10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height=".5*"/>
+        </Grid.RowDefinitions>
 
-                <CollectionView ItemsSource="{Binding ExerciseEntries}" EmptyView="Nothing to show" HeightRequest="500">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <HorizontalStackLayout>
-                                <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
-                                       WidthRequest="120"/>
-                                <Label Text="{Binding ExerciseName}" />
-                                <Label Text="{Binding Sets}"/>
-                                <Label Text="{Binding Reps}"/>
-                                <Label Text="{Binding Weight}"/>
-                            </HorizontalStackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Border>
-        </VerticalStackLayout>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
+        <Border StrokeShape="RoundRectangle 10" Grid.ColumnSpan="3">
+
+            <CollectionView ItemsSource="{Binding ExerciseEntries}" EmptyView="Nothing to show" HeightRequest="500">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout Padding="10">
+                            <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}" Padding="5, 0, 10, 0"/>
+                            <Label Text="{Binding ExerciseName, StringFormat='Name: {0}'}" Padding="5, 0, 10, 0"/>
+                            <Label Text="{Binding Sets}" Padding="5, 0, 10, 0"/>
+                            <Label Text="{Binding Reps}" Padding="5, 0, 10, 0"/>
+                            <Label Text="{Binding Weight}" Padding="5, 0, 10, 0"/>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+
+
+        <Button Text="Add Exercise Entry"
+                Grid.Row="1"
+                Margin="0, 10"
+                Grid.ColumnSpan="3"
+                Command="{Binding AddExerciseCommand}">
+
+        </Button>
+
+        <Button Text="Delete All Exercises Entries"
+                Grid.Row="2"
+                Margin="0, 10"
+                Grid.ColumnSpan="3"
+                Command="{Binding DeleteAllExercisesCommand}">
+        </Button>
         
-
-        <!-- Button to add new entry -->
-        <HorizontalStackLayout VerticalOptions="End" Spacing="5">
-            <Button Text="Add Exercise Entry"
-                    Command="{Binding AddExerciseCommand}" />
-            <Button Text="Delete All Exercise Entries"
-                    Command="{Binding DeleteAllExercisesCommand}" />
-        </HorizontalStackLayout>
     </Grid>
     
 </ContentPage>
