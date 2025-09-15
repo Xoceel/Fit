@@ -1,10 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using Fit.Data;
+using Fit.Models;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Fit.Data;
-using Fit.Models;
 
 namespace Fit.ViewModels
 {
@@ -20,6 +20,11 @@ namespace Fit.ViewModels
         }
 
         private ObservableCollection<ExerciseEntry> _exerciseEntries;
+
+        public string Date
+        {
+            get => DateTime.Now.ToString("dddd, MMM d");
+        }
 
         public ObservableCollection<ExerciseEntry> ExerciseEntries
         {

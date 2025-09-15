@@ -23,9 +23,12 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border StrokeShape="RoundRectangle 10" Grid.ColumnSpan="3">
+        <Border StrokeShape="RoundRectangle 10" Grid.ColumnSpan="6">
 
             <CollectionView ItemsSource="{Binding ExerciseEntries}" EmptyView="Nothing to show">
                 <CollectionView.ItemTemplate>
@@ -45,19 +48,41 @@
 
         <Button Text="Add Exercise Entry"
                 Grid.Row="1"
-                Margin="0, 10"
-                Grid.ColumnSpan="3"
+                Margin="0, 10, 5, 10"
+                Grid.ColumnSpan="4"
                 Command="{Binding AddExerciseCommand}">
 
         </Button>
 
-        <Button Text="Delete All Exercises Entries"
-                Grid.Row="2"
-                Margin="0, 10"
-                Grid.ColumnSpan="3"
+        <Button Text="Delete All"
+                Grid.Row="1"
+                Grid.Column="4"
+                Margin="5, 10, 0, 10"
+                Grid.ColumnSpan="2"
                 Command="{Binding DeleteAllExercisesCommand}">
         </Button>
-        
+
+        <Button Text="&lt;"
+                Grid.Row="2"
+                Margin="0, 0, 5, 10">
+        </Button>
+
+        <Border Grid.Row="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="4"
+                Margin="5, 0, 5, 10"
+                StrokeShape="RoundRectangle 10">
+
+            <Label Text="{Binding Date}"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"/>
+        </Border>
+
+        <Button Text="&gt;"
+                Grid.Row="2"
+                Grid.Column="5"
+                Margin="5, 0, 0, 10">
+        </Button>
     </Grid>
     
 </ContentPage>
