@@ -12,4 +12,14 @@ public partial class CalorieTrackingPage : ContentPage
 		_database = database;
 		BindingContext = new CalorieEntryViewModel(_database);
 	}
+
+    private void ClickToShowPopup_Clicked(object sender, EventArgs e)
+    {
+        popup.Show();
+    }
+
+    private void ClickToClosePopup_Clicked(object sender, EventArgs e)
+    {
+        popup.Dismiss();
+    }
 }

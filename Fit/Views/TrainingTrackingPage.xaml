@@ -28,17 +28,17 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border StrokeShape="RoundRectangle 10" Grid.ColumnSpan="6">
+        <Border StrokeShape="RoundRectangle 10" Grid.ColumnSpan="6" Padding="10" BackgroundColor="White">
 
             <CollectionView ItemsSource="{Binding ExerciseEntries}" EmptyView="Nothing to show">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <HorizontalStackLayout Padding="10">
-                            <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}" Padding="5, 0, 10, 0"/>
-                            <Label Text="{Binding ExerciseName, StringFormat='Name: {0}'}" Padding="5, 0, 10, 0"/>
-                            <Label Text="{Binding Sets}" Padding="5, 0, 10, 0"/>
-                            <Label Text="{Binding Reps}" Padding="5, 0, 10, 0"/>
-                            <Label Text="{Binding Weight}" Padding="5, 0, 10, 0"/>
+                        <HorizontalStackLayout Padding="0, 5, 0, 5" HorizontalOptions="Center">
+                            <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"/>
+                            <Label Text="{Binding ExerciseName, StringFormat='Name: {0}'}"/>
+                            <Label Text="{Binding Sets}"/>
+                            <Label Text="{Binding Reps}"/>
+                            <Label Text="{Binding Weight}"/>
                         </HorizontalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

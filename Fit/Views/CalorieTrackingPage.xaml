@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Fit.Views.CalorieTrackingPage"
-             xmlns:cards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards">
+             xmlns:cards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
+             xmlns:popups="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup">
 
     <Shell.TitleView>
         <Grid>
@@ -24,12 +25,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border StrokeShape="RoundRectangle 10" Grid.ColumnSpan="3">
+        <Border StrokeShape="RoundRectangle 10" Grid.ColumnSpan="3" Padding="10" BackgroundColor="White">
 
             <CollectionView ItemsSource="{Binding CalorieEntries}" EmptyView="Nothing to show">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <HorizontalStackLayout Padding="5">
+                        <HorizontalStackLayout Padding="0, 5, 0, 5" HorizontalOptions="Center">
                             <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"/>
                             <Label Text="{Binding Calories, StringFormat='{0} kcal'}"/>
                             <Label Text="{Binding Protein, StringFormat='{0} g'}"/>
@@ -41,14 +42,11 @@
             </CollectionView>
         </Border>
 
-         
-
         <Button Text="Add Calorie Entry"
                 Grid.Row="1"
                 Margin="0, 10"
                 Grid.ColumnSpan="3"
-                Command="{Binding AddCalorieCommand}">
-
+                Clicked="ClickToShowPopup_Clicked">
         </Button>
 
         <Button Text="Delete All Calorie Entries"
@@ -57,7 +55,44 @@
                 Grid.ColumnSpan="3"
                 Command="{Binding DeleteAllCaloriesCommand}">
         </Button>
-        
+
+        <popups:SfPopup x:Name="popup" ShowFooter="True" AppearanceMode="TwoButton" AcceptButtonText="Add" DeclineButtonText="Cancel" AutoSizeMode="Height">
+            <popups:SfPopup.HeaderTemplate>
+                <DataTemplate>
+                    <Label Text="New Calorie Entry" 
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"/>
+                </DataTemplate>
+            </popups:SfPopup.HeaderTemplate>
+
+            <popups:SfPopup.ContentTemplate>
+                <DataTemplate>
+                    <Grid RowDefinitions=".5*, *, .5*, *, .5*, *, .5*, *, .5*, *" Padding="10, 0, 10, 0">
+                        <Label Text="Calories:"/>
+                        <Entry Grid.Row="1"/>
+                        <Label Grid.Row="2" Text="Fat:"/>
+                        <Entry Grid.Row="3"/>
+                        <Label Grid.Row="4" Text="Fiber:"/>
+                        <Entry Grid.Row="5"/>
+                        <Label Grid.Row="6" Text="Protein:"/>
+                        <Entry Grid.Row="7"/>
+                        <Label Grid.Row="8" Text="Carbs:"/>
+                        <Entry Grid.Row="9"/>
+                    </Grid>
+                </DataTemplate>
+            </popups:SfPopup.ContentTemplate>
+
+            <popups:SfPopup.FooterTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*, *">
+                        <Button Text="Cancel" BackgroundColor="Transparent" TextColor="Black" Clicked="ClickToClosePopup_Clicked"/>
+                        <Button Grid.Column="2" Text="Accept" BackgroundColor="Transparent" TextColor="Black" Command="{Binding AddCalorieCommand}" Clicked="ClickToClosePopup_Clicked"/>
+                    </Grid>
+                </DataTemplate>
+            </popups:SfPopup.FooterTemplate>
+        </popups:SfPopup>
+
+
     </Grid>
     
 </ContentPage>

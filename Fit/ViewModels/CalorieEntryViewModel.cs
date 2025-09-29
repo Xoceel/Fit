@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Fit.Data;
 using Fit.Models;
+using Syncfusion.Maui.Popup;
 
 namespace Fit.ViewModels
 {
